@@ -1,0 +1,159 @@
+<div class="dashboard-wrapper fade-in">
+  <!-- Navbar -->
+  <nav class="dashboard-nav">
+    <div class="nav-brand">Quoco Hub</div>
+    <div class="nav-links" style="align-items: center;">
+      <a routerLink="/home" class="nav-link">Overview</a>
+      <a routerLink="/projects" class="nav-link active">Projects</a>
+      <a routerLink="/tender-analyzer" class="nav-link">Tender Analyser</a>
+      <a routerLink="/boq-knowledge-base" class="nav-link">BoQ Knowledge Base</a>
+      <a routerLink="/boq-estimator" class="nav-link">BoQ Estimator</a>
+      <a routerLink="/about" class="nav-link">About</a>
+      <a routerLink="/settings" class="nav-link">Settings</a>
+      <button routerLink="/login" aria-label="Logout" style="margin-left: 1rem; border-radius: 2rem; padding: 0.5rem 1rem; border: 1px solid var(--error); background: rgba(239, 68, 68, 0.1); cursor: pointer; color: var(--error); font-weight: 500; font-family: inherit; transition: all 0.2s;">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <main class="dashboard-content">
+    <div class="projects-action-bar">
+      <div>
+        <h1>Projects Portfolio</h1>
+        <p>Monitor your active construction estimates and deployments.</p>
+      </div>
+      <div class="actions">
+        <select class="form-control filter-dropdown" (change)="changeFilter($event)">
+          <option value="All">All Projects</option>
+          <option value="Active">Active</option>
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <button class="btn-primary flex-btn" (click)="openModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+          New Project
+        </button>
+      </div>
+    </div>
+
+    <section class="dashboard-section fade-in">
+      <div class="projects-grid">
+        <div class="project-card" *ngFor="let p of filteredProjects">
+          <div class="card-header-status">
+            <h3>{{ p.name }}</h3>
+            <span class="status-badge" [ngClass]="p.status.toLowerCase()">{{ p.status }}</span>
+          </div>
+          <div class="project-details">
+            <p><strong>Location:</strong> {{ p.location }}</p>
+            <p><strong>Budget:</strong> {{ p.budget }}</p>
+            <p><strong>Start Date:</strong> {{ p.startDate }}</p>
+          </div>
+          <div class="card-footer" style="margin-top: 1.5rem;">
+            View Details
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+        
+        <div class="empty-state" *ngIf="filteredProjects.length === 0">
+          <p>No projects match this status filter.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dashboard Footer -->
+  <footer class="dashboard-footer">
+    <div class="footer-content">
+      <div class="footer-branding">
+        <h3>Quoco</h3>
+        <p>&copy; 2026 Quotation Consultants. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay fade-in" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeModal()" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    
+    <div class="modal-header">
+      <h2>Add New Project</h2>
+      <p>Create a new construction project to track progress and manage estimates.</p>
+    </div>
+
+    <!-- Dashed upload zone -->
+    <div class="upload-zone">
+      <div class="upload-icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--accent-color)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+      </div>
+      <div class="upload-text">
+        <h4>Upload Document to Auto-Fill</h4>
+        <p>PDF or Word document</p>
+      </div>
+      <button class="btn-ghost" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right: 0.5rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+        Choose File
+      </button>
+    </div>
+
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid-modal">
+        
+        <!-- Row 1 -->
+        <div class="form-group">
+          <label for="projectName">Project Name</label>
+          <input type="text" id="projectName" class="form-control" formControlName="projectName" placeholder="Enter project name" [class.is-invalid]="isInvalid('projectName')">
+        </div>
+        
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" class="form-control" formControlName="status" [class.is-invalid]="isInvalid('status')">
+            <option value="Select status" disabled selected>Select status</option>
+            <option value="Pending">Pending</option>
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="form-group full-width">
+          <label for="location">Location</label>
+          <input type="text" id="location" class="form-control" formControlName="location" placeholder="Project location" [class.is-invalid]="isInvalid('location')">
+        </div>
+
+        <!-- Row 3 -->
+        <div class="form-group">
+          <label for="budget">Budget</label>
+          <input type="text" id="budget" class="form-control" formControlName="budget" placeholder="$0.00" [class.is-invalid]="isInvalid('budget')">
+        </div>
+
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input type="date" id="startDate" class="form-control" formControlName="startDate" [class.is-invalid]="isInvalid('startDate')">
+        </div>
+
+        <!-- Row 4 -->
+        <div class="form-group full-width">
+          <label for="description">Description</label>
+          <textarea id="description" class="form-control" formControlName="description" placeholder="Project description..." rows="3"></textarea>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary">Create Project</button>
+      </div>
+    </form>
+  </div>
+</div>

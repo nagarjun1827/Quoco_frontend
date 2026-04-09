@@ -1,0 +1,138 @@
+<div class="dashboard-wrapper fade-in">
+  <!-- Dashboard Navbar -->
+  <nav class="dashboard-nav">
+    <div class="nav-brand">Quoco Hub</div>
+    <div class="nav-links" style="align-items: center;">
+      <a routerLink="/home" class="nav-link active">Overview</a>
+      <a routerLink="/projects" class="nav-link">Projects</a>
+      <a routerLink="/tender-analyzer" class="nav-link">Tender Analyser</a>
+      <a routerLink="/boq-knowledge-base" class="nav-link">BoQ Knowledge Base</a>
+      <a routerLink="/boq-estimator" class="nav-link">BoQ Estimator</a>
+      <a routerLink="/about" class="nav-link">About</a>
+      <a routerLink="/settings" class="nav-link">Settings</a>
+      <button routerLink="/login" aria-label="Logout" style="margin-left: 1rem; border-radius: 2rem; padding: 0.5rem 1rem; border: 1px solid var(--error); background: rgba(239, 68, 68, 0.1); cursor: pointer; color: var(--error); font-weight: 500; font-family: inherit; transition: all 0.2s;">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <main class="dashboard-content">
+
+    <!-- 1. Recent Activity Section (Moved to Top) -->
+    <section class="dashboard-section">
+      <h2 class="section-title">Recent Insight Activity</h2>
+      <div class="activity-card">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="activity-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p>Your workspace is ready. Link a recent tender document to start generating automated estimation analytics.</p>
+      </div>
+    </section>
+
+    <!-- 2. Core Modules Section -->
+    <section class="dashboard-section">
+      <h2 class="section-title">Core Modules</h2>
+      <div class="dashboard-grid">
+        <!-- Tender Analyser -->
+        <a routerLink="/tender-analyzer" class="module-card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3>Tender Analyser</h3>
+          <p>Analyze upcoming bids, historical data, and cost variations across regions seamlessly.</p>
+          <div class="card-footer">
+            Launch Tool 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+        </a>
+
+        <!-- BoQ Estimator -->
+        <a routerLink="/boq-estimator" class="module-card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+            </svg>
+          </div>
+          <h3>BoQ Estimator</h3>
+          <p>Automate Bill of Quantities breakdown, material tracking and subcontractor management.</p>
+          <div class="card-footer">
+            Open Estimator
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+        </a>
+
+        <!-- BoQ Knowledge Base -->
+        <a routerLink="/boq-knowledge-base" class="module-card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+          <h3>BoQ Knowledge Base</h3>
+          <p>Securely archive and index historical Bills of Quantities for future pricing baselines.</p>
+          <div class="card-footer">
+            Access Archives
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. Client Testimonials Section -->
+    <section class="dashboard-section fade-in">
+      <h2 class="section-title">Client Testimonials</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card" *ngFor="let t of testimonials">
+          <div class="quote-icon">"</div>
+          <p class="quote">{{ t.quote }}</p>
+          <p class="author">{{ t.author }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Hero Carousel (Images) -->
+    <section class="dashboard-section">
+      <h2 class="section-title">Gallery</h2>
+      <div class="hero-carousel">
+        <div class="carousel-track">
+          <div class="carousel-slide" *ngFor="let slide of slides; let i = index" [class.active]="i === currentSlide" [style.backgroundImage]="'url(' + slide.image + ')'">
+          </div>
+        </div>
+
+        <button class="carousel-control prev" (click)="prevSlide()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button class="carousel-control next" (click)="nextSlide()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+        
+        <div class="carousel-indicators">
+          <span class="indicator" *ngFor="let slide of slides; let idx = index" [class.active]="idx === currentSlide" (click)="currentSlide = idx"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dashboard Footer -->
+  <footer class="dashboard-footer">
+    <div class="footer-content">
+      <div class="footer-branding">
+        <h3>Quoco</h3>
+        <p>&copy; 2026 Quotation Consultants. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>

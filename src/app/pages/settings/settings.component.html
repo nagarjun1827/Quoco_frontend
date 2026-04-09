@@ -1,0 +1,381 @@
+<div class="dashboard-wrapper fade-in">
+  <nav class="dashboard-nav">
+    <div class="nav-brand">Quoco Hub</div>
+    <div class="nav-links" style="align-items: center;">
+      <a routerLink="/home" class="nav-link">Overview</a>
+      <a routerLink="/projects" class="nav-link">Projects</a>
+      <a routerLink="/tender-analyzer" class="nav-link">Tender Analyser</a>
+      <a routerLink="/boq-knowledge-base" class="nav-link">BoQ Knowledge Base</a>
+      <a routerLink="/boq-estimator" class="nav-link">BoQ Estimator</a>
+      <a routerLink="/about" class="nav-link">About</a>
+      <a routerLink="/settings" class="nav-link active">Settings</a>
+      <button routerLink="/login" aria-label="Logout" style="margin-left: 1rem; border-radius: 2rem; padding: 0.5rem 1rem; border: 1px solid var(--error); background: rgba(239, 68, 68, 0.1); cursor: pointer; color: var(--error); font-weight: 500; font-family: inherit; transition: all 0.2s;">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <main class="dashboard-content">
+    <div class="settings-header">
+      <div class="settings-header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      </div>
+      <div>
+        <h1>Settings</h1>
+        <p>Manage your company profile, account security, notifications and preferences</p>
+      </div>
+    </div>
+
+    <div class="settings-layout">
+
+      <!-- LEFT COLUMN -->
+      <div class="settings-col">
+
+        <!-- ── Company Profile Card ── -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon profile-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" /></svg>
+            </div>
+            <div>
+              <h2>Company Profile</h2>
+              <p>Manage your registration data, credentials, and business details</p>
+            </div>
+          </div>
+
+          <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()">
+            <div class="profile-form-grid">
+              <div class="profile-section-title">Security &amp; Contact</div>
+
+              <div class="profile-form-group full-width">
+                <label class="form-label" for="profileEmail">Registrant Email <span style="opacity:0.5;font-size:0.8rem;">🔒</span></label>
+                <input type="email" id="profileEmail" class="form-input readonly-field" formControlName="email">
+                <small class="field-hint">This primary login email cannot be changed. Contact support for transfer requests.</small>
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="form-input" formControlName="fullName" [class.is-invalid]="isProfileInvalid('fullName')" placeholder="Your full name">
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="phone">Phone Number</label>
+                <input type="tel" id="phone" class="form-input" formControlName="phone" [class.is-invalid]="isProfileInvalid('phone')" placeholder="+1 234 567 890">
+              </div>
+
+              <div class="profile-section-title">Company Identification</div>
+
+              <div class="profile-form-group full-width">
+                <label class="form-label" for="companyName">Enterprise / Company Name</label>
+                <input type="text" id="companyName" class="form-input" formControlName="companyName" [class.is-invalid]="isProfileInvalid('companyName')" placeholder="Your company name">
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="nob">Nature of Business</label>
+                <select id="nob" class="form-input profile-select" formControlName="nob" [class.is-invalid]="isProfileInvalid('nob')">
+                  <option value="Construction &amp; Engineering">Construction &amp; Engineering</option>
+                  <option value="Architecture">Architecture</option>
+                  <option value="Contractor">General Contractor</option>
+                  <option value="Consulting">Consulting</option>
+                </select>
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="legalStatus">Legal Status</label>
+                <select id="legalStatus" class="form-input profile-select" formControlName="legalStatus" [class.is-invalid]="isProfileInvalid('legalStatus')">
+                  <option value="Partnership">Partnership</option>
+                  <option value="LLC">LLC</option>
+                  <option value="Corporation">Corporation</option>
+                  <option value="Sole Proprietorship">Sole Proprietorship</option>
+                </select>
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="companyCat">Company Category / Region</label>
+                <input type="text" id="companyCat" class="form-input" formControlName="companyCat" [class.is-invalid]="isProfileInvalid('companyCat')" placeholder="e.g. New York, USA">
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="teamMember">Team Member Cap</label>
+                <input type="number" id="teamMember" class="form-input" formControlName="teamMember" min="1" [class.is-invalid]="isProfileInvalid('teamMember')" placeholder="50">
+              </div>
+
+              <div class="profile-form-group full-width">
+                <label class="form-label" for="estYear">Established Year</label>
+                <input type="number" id="estYear" class="form-input" formControlName="estYear" min="1800" [class.is-invalid]="isProfileInvalid('estYear')" placeholder="2015">
+              </div>
+
+              <div class="profile-section-title">Regulatory Setup</div>
+
+              <div class="profile-form-group full-width">
+                <label class="form-label" for="address">Corporate Address</label>
+                <input type="text" id="address" class="form-input" formControlName="address" [class.is-invalid]="isProfileInvalid('address')" placeholder="123 Main St, City">
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="officeLocation">Reporting Location</label>
+                <input type="text" id="officeLocation" class="form-input" formControlName="officeLocation" [class.is-invalid]="isProfileInvalid('officeLocation')" placeholder="Office city">
+              </div>
+
+              <div class="profile-form-group">
+                <label class="form-label" for="gstNo">Registered GST Number</label>
+                <input type="text" id="gstNo" class="form-input" formControlName="gstNo" [class.is-invalid]="isProfileInvalid('gstNo')" placeholder="GST No.">
+              </div>
+
+              <div class="profile-form-group full-width">
+                <label class="form-label" for="panNo">PAN ID</label>
+                <input type="text" id="panNo" class="form-input" formControlName="panNo" [class.is-invalid]="isProfileInvalid('panNo')" placeholder="PAN No.">
+              </div>
+            </div>
+
+            <!-- Save feedback -->
+            <div class="pw-message success" *ngIf="profileSaved">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              Company profile saved successfully.
+            </div>
+
+            <button type="submit" class="btn-primary" id="saveProfileBtn" style="margin-top:1.5rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
+              Save Profile
+            </button>
+          </form>
+        </div>
+
+        <!-- ── Account Security Card ── -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            </div>
+            <div>
+              <h2>Account Security</h2>
+              <p>Update your password and keep your account safe</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="currentPw">Current Password</label>
+            <div class="pw-input-wrap">
+              <input id="currentPw" class="form-input" [type]="showCurrentPw ? 'text' : 'password'" [(ngModel)]="currentPassword" placeholder="Enter current password" autocomplete="current-password">
+              <button class="pw-toggle" (click)="showCurrentPw = !showCurrentPw" type="button" aria-label="Toggle password visibility">
+                <svg *ngIf="!showCurrentPw" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                <svg *ngIf="showCurrentPw" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newPw">New Password</label>
+            <div class="pw-input-wrap">
+              <input id="newPw" class="form-input" [type]="showNewPw ? 'text' : 'password'" [(ngModel)]="newPassword" placeholder="Min. 8 characters" autocomplete="new-password">
+              <button class="pw-toggle" (click)="showNewPw = !showNewPw" type="button" aria-label="Toggle new password visibility">
+                <svg *ngIf="!showNewPw" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                <svg *ngIf="showNewPw" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+              </button>
+            </div>
+            <div class="pw-strength-bar" *ngIf="newPassword.length > 0">
+              <div class="pw-strength-track">
+                <div class="pw-strength-fill"
+                  [style.width]="newPassword.length >= 12 ? '100%' : newPassword.length >= 8 ? '60%' : '25%'"
+                  [class.weak]="newPassword.length < 8"
+                  [class.medium]="newPassword.length >= 8 && newPassword.length < 12"
+                  [class.strong]="newPassword.length >= 12">
+                </div>
+              </div>
+              <span class="pw-strength-label"
+                [class.weak-text]="newPassword.length < 8"
+                [class.medium-text]="newPassword.length >= 8 && newPassword.length < 12"
+                [class.strong-text]="newPassword.length >= 12">
+                {{ newPassword.length < 8 ? 'Weak' : newPassword.length < 12 ? 'Medium' : 'Strong' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirmPw">Confirm New Password</label>
+            <div class="pw-input-wrap">
+              <input id="confirmPw" class="form-input" [type]="showConfirmPw ? 'text' : 'password'" [(ngModel)]="confirmPassword" placeholder="Repeat new password" autocomplete="new-password">
+              <button class="pw-toggle" (click)="showConfirmPw = !showConfirmPw" type="button" aria-label="Toggle confirm password visibility">
+                <svg *ngIf="!showConfirmPw" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                <svg *ngIf="showConfirmPw" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="pw-message" *ngIf="passwordMessage" [class.success]="passwordSuccess" [class.error]="!passwordSuccess">
+            <svg *ngIf="passwordSuccess" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            <svg *ngIf="!passwordSuccess" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            {{ passwordMessage }}
+          </div>
+
+          <button class="btn-primary" id="updatePasswordBtn" (click)="updatePassword()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+            Update Password
+          </button>
+        </div>
+
+        <!-- ── App Preferences Card ── -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon pref-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+            </div>
+            <div>
+              <h2>App Preferences</h2>
+              <p>Customize how Quoco behaves for your workflow</p>
+            </div>
+          </div>
+          <div class="pref-list">
+            <div class="pref-row" *ngFor="let pref of preferences">
+              <div class="pref-info">
+                <span class="pref-label">{{ pref.label }}</span>
+                <span class="pref-desc">{{ pref.description }}</span>
+              </div>
+              <select class="pref-select" [(ngModel)]="pref.value" (change)="savePreferences()" [id]="'pref-' + pref.id" [attr.aria-label]="pref.label">
+                <option *ngFor="let opt of pref.options" [value]="opt">{{ opt }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Danger Zone ── -->
+        <div class="settings-card danger-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon danger-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            </div>
+            <div>
+              <h2 class="danger-title">Danger Zone</h2>
+              <p>These actions are irreversible. Proceed with caution.</p>
+            </div>
+          </div>
+          <div class="danger-body">
+            <div class="danger-action-row">
+              <div>
+                <span class="danger-action-label">Delete Account</span>
+                <span class="danger-action-desc">Permanently remove your account and all associated data.</span>
+              </div>
+              <button class="btn-danger" id="deleteAccountBtn" (click)="confirmDeleteAccount()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="settings-col">
+
+        <!-- ── Notifications Card ── -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon notif-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+            </div>
+            <div>
+              <h2>Notifications</h2>
+              <p>Manage how and when Quoco contacts you</p>
+            </div>
+          </div>
+          <div class="notif-list">
+            <div class="notif-row" *ngFor="let notif of notifications">
+              <div class="notif-info">
+                <span class="notif-label">{{ notif.label }}</span>
+                <span class="notif-desc">{{ notif.description }}</span>
+              </div>
+              <button class="toggle-switch" [class.on]="notif.enabled" (click)="toggleNotification(notif)" [attr.aria-label]="notif.label + ' toggle'" [id]="'toggle-' + notif.id" type="button">
+                <span class="toggle-thumb"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Appearance Card ── -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <div class="settings-card-icon theme-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
+            </div>
+            <div>
+              <h2>Appearance</h2>
+              <p>Choose your preferred interface theme</p>
+            </div>
+          </div>
+          <div class="theme-options">
+            <button class="theme-option" [class.active]="isDarkMode" (click)="isDarkMode || toggleTheme()" id="darkThemeBtn" type="button">
+              <div class="theme-preview dark-preview">
+                <div class="tp-bar"></div>
+                <div class="tp-content">
+                  <div class="tp-line long"></div>
+                  <div class="tp-line short"></div>
+                </div>
+              </div>
+              <span>Dark</span>
+              <div class="theme-check" *ngIf="isDarkMode">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+              </div>
+            </button>
+            <button class="theme-option" [class.active]="!isDarkMode" (click)="!isDarkMode || toggleTheme()" id="lightThemeBtn" type="button">
+              <div class="theme-preview light-preview">
+                <div class="tp-bar light"></div>
+                <div class="tp-content">
+                  <div class="tp-line long light"></div>
+                  <div class="tp-line short light"></div>
+                </div>
+              </div>
+              <span>Light</span>
+              <div class="theme-check" *ngIf="!isDarkMode">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="dashboard-footer">
+    <div class="footer-content">
+      <div class="footer-branding">
+        <h3>Quoco</h3>
+        <p>&copy; 2026 Quotation Consultants. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm" (click)="cancelDelete()">
+  <div class="modal-panel" (click)="$event.stopPropagation()">
+    <div class="modal-header danger-modal-header">
+      <div class="modal-danger-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+      </div>
+      <div>
+        <h3 class="modal-title">Delete Account?</h3>
+        <p class="modal-subtitle">This action cannot be undone</p>
+      </div>
+      <button class="modal-close-btn" (click)="cancelDelete()" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-warning-text">You are about to permanently delete your account and all associated data, including projects, documents, and estimation history. This action is <strong>irreversible</strong>.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-action-btn secondary" (click)="cancelDelete()">Cancel</button>
+      <button class="modal-action-btn danger" id="confirmDeleteBtn" (click)="deleteAccount()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+        Yes, Delete Account
+      </button>
+    </div>
+  </div>
+</div>

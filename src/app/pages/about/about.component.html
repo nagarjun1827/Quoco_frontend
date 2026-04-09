@@ -1,0 +1,136 @@
+<div class="dashboard-wrapper fade-in">
+  <nav class="dashboard-nav">
+    <div class="nav-brand">Quoco Hub</div>
+    <div class="nav-links" style="align-items: center;">
+      <a routerLink="/home" class="nav-link">Overview</a>
+      <a routerLink="/projects" class="nav-link">Projects</a>
+      <a routerLink="/tender-analyzer" class="nav-link">Tender Analyser</a>
+      <a routerLink="/boq-knowledge-base" class="nav-link">BoQ Knowledge Base</a>
+      <a routerLink="/boq-estimator" class="nav-link">BoQ Estimator</a>
+      <a routerLink="/about" class="nav-link active">About</a>
+      <a routerLink="/settings" class="nav-link">Settings</a>
+      <button routerLink="/login" aria-label="Logout" class="logout-btn">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <main class="dashboard-content">
+    <div class="doc-container">
+      <header class="doc-header">
+        <h1>Platform Documentation</h1>
+        <p>A comprehensive guide to mastering the Quoco Hub estimation ecosystem.</p>
+      </header>
+
+      <div class="doc-sections">
+        <!-- 1. Introduction -->
+        <section class="doc-section">
+          <h2>Overview</h2>
+          <p>Quoco Hub is an advanced engineering portal designed for construction firms to automate tender analysis and Bill of Quantities (BoQ) estimation. This documentation covers the core modules and workflows required to optimize your pre-construction timeline.</p>
+        </section>
+
+        <!-- 2. Tender Analyser -->
+        <section class="doc-section">
+          <div class="section-badge">Module 1</div>
+          <h2>Tender Analyser</h2>
+          <p>Utilize conversational AI to dissect complex tender documents and identify critical specifications instantly.</p>
+          
+          <div class="doc-list">
+            <div class="doc-item">
+              <strong>PDF Ingestion:</strong> Drag and drop tender PDFs into the analysis bar to initialize the ingestion pipeline.
+            </div>
+            <div class="doc-item">
+              <strong>Automated Summarization:</strong> Upon upload, the AI generates a structured summary highlighting Scope, Materials, and Deadlines.
+            </div>
+            <div class="doc-item">
+              <strong>Contextual Chat:</strong> Ask specific questions like <em>"What are the liquidated damages?"</em> or <em>"List the required material grades"</em> to receive answers directly from the document source.
+            </div>
+          </div>
+
+          <div class="doc-note">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span><strong>Analysis Tip:</strong> Use the "Knowledge Base" toggle in the Tender Analyser to view all documents currently in the session's memory.</span>
+          </div>
+        </section>
+
+        <!-- 3. BoQ Knowledge Base -->
+        <section class="doc-section">
+          <div class="section-badge">Module 2</div>
+          <h2>BoQ Knowledge Base</h2>
+          <p>The Knowledge Base serves as your firm's institutional memory, archiving past Bills of Quantities for historical pricing reference.</p>
+          
+          <div class="doc-list">
+            <div class="doc-item">
+              <strong>Archive Management:</strong> Store historical BoQs categorized by individual project names.
+            </div>
+            <div class="doc-item">
+              <strong>Project Tagging:</strong> When uploading archives, provide a project identifier to enable efficient filtering and lookup.
+            </div>
+            <div class="doc-item">
+              <strong>Data Preservation:</strong> Metadata for every file (size, upload date, file type) is persisted to ensure full auditability of your pricing history.
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. BoQ Estimator -->
+        <section class="doc-section premium-section">
+          <div class="section-badge">Module 3 (PRO)</div>
+          <h2>BoQ Estimator</h2>
+          <p>Our flagship AI tool for generating predictive cost estimates for new construction projects based on material parameters and historical curves.</p>
+          
+          <div class="doc-list">
+            <div class="doc-item">
+              <strong>Estimation Queue:</strong> Monitor active estimation requests through a centralized tracking table.
+            </div>
+            <div class="doc-item">
+              <strong>Status Lifecycle:</strong> Track tasks through four stages: 
+              <span class="status-example queued">Queued</span>, 
+              <span class="status-example processing">In Progress</span>, 
+              <span class="status-example success">Success</span>, and 
+              <span class="status-example failed">Failed</span>.
+            </div>
+            <div class="doc-item">
+              <strong>Deeper Insights:</strong> AI mapping correlates material quantities with global market indices to provide high-fidelity cost breakdowns.
+            </div>
+          </div>
+
+          <div class="doc-tip">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            <span><strong>Pro Tip:</strong> Ensure your BoQ files are in <strong>.xlsx</strong> format for the highest precision during AI parameter mapping.</span>
+          </div>
+        </section>
+
+        <!-- 5. Settings & UI -->
+        <section class="doc-section">
+          <div class="section-badge">Account</div>
+          <h2>Settings & Preferences</h2>
+          <p>Customize your experience and manage organizational visibility.</p>
+          
+          <div class="doc-list">
+            <div class="doc-item">
+              <strong>Theme Controls:</strong> Switch between High-Contrast Dark and Vibrant Light modes in the Settings panel.
+            </div>
+            <div class="doc-item">
+              <strong>Logout:</strong> Securely end your session through the standardized red Action Button in the global navigation bar.
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Dashboard Footer -->
+  <footer class="dashboard-footer">
+    <div class="footer-content">
+      <div class="footer-branding">
+        <h3>Quoco</h3>
+        <p>&copy; 2026 Quotation Consultants. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>

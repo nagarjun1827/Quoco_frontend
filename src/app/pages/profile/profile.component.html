@@ -1,0 +1,134 @@
+<div class="dashboard-wrapper fade-in">
+  <nav class="dashboard-nav">
+    <div class="nav-brand">Quoco Hub</div>
+    <div class="nav-links" style="align-items: center;">
+      <a routerLink="/home" class="nav-link">Overview</a>
+      <a routerLink="/projects" class="nav-link">Projects</a>
+      <a routerLink="/tender-analyzer" class="nav-link">Tender Analyser</a>
+      <a routerLink="/boq-estimator" class="nav-link">BoQ Estimator</a>
+      <a routerLink="/about" class="nav-link">About</a>
+      <a routerLink="/settings" class="nav-link active">Settings</a>
+      <button routerLink="/login" aria-label="Logout" style="margin-left: 1rem; border-radius: 2rem; padding: 0.5rem 1rem; border: 1px solid var(--error); background: rgba(239, 68, 68, 0.1); cursor: pointer; color: var(--error); font-weight: 500; font-family: inherit; transition: all 0.2s;">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <main class="dashboard-content">
+    <div class="dashboard-header">
+      <h1>Company Profile</h1>
+      <p>Manage your account credentials and foundational business details.</p>
+    </div>
+
+    <section class="dashboard-section">
+      <div class="settings-card fade-in">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          
+          <div class="form-grid">
+            <div class="section-title">Security & Contact</div>
+            
+            <div class="form-group full-width">
+              <label for="email">Registrant Email <span class="lock-icon" style="opacity: 0.5; font-size: 0.8rem; margin-left: 0.25rem;">🔒</span></label>
+              <input type="email" id="email" class="form-control readonly-field" formControlName="email">
+              <small class="helper-text" style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem; display: block;">This primary login email cannot be changed. Contact support for transfer requests.</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" class="form-control" formControlName="fullName" [class.is-invalid]="isInvalid('fullName')">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" class="form-control" formControlName="phone" [class.is-invalid]="isInvalid('phone')">
+            </div>
+
+            <div class="section-title">Company Identification</div>
+
+            <div class="form-group full-width">
+              <label for="companyName">Enterprise/Company Name</label>
+              <input type="text" id="companyName" class="form-control" formControlName="companyName" [class.is-invalid]="isInvalid('companyName')">
+            </div>
+
+            <div class="form-group">
+              <label for="nob">Nature of Business</label>
+              <select id="nob" class="form-control" formControlName="nob" [class.is-invalid]="isInvalid('nob')">
+                <option value="Construction & Engineering">Construction & Engineering</option>
+                <option value="Architecture">Architecture</option>
+                <option value="Contractor">General Contractor</option>
+                <option value="Consulting">Consulting</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="legalStatus">Legal Status</label>
+              <select id="legalStatus" class="form-control" formControlName="legalStatus" [class.is-invalid]="isInvalid('legalStatus')">
+                <option value="Partnership">Partnership</option>
+                <option value="LLC">LLC</option>
+                <option value="Corporation">Corporation</option>
+                <option value="Sole Proprietorship">Sole Proprietorship</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="companyCat">Company Category / Region</label>
+              <input type="text" id="companyCat" class="form-control" formControlName="companyCat" [class.is-invalid]="isInvalid('companyCat')">
+            </div>
+
+            <div class="form-group">
+              <label for="teamMember">Team Member Cap</label>
+              <input type="number" id="teamMember" class="form-control" formControlName="teamMember" min="1" [class.is-invalid]="isInvalid('teamMember')">
+            </div>
+
+            <div class="form-group">
+              <label for="estYear">Established Year</label>
+              <input type="number" id="estYear" class="form-control" formControlName="estYear" min="1800" [class.is-invalid]="isInvalid('estYear')">
+            </div>
+
+            <div class="section-title">Regulatory Setup</div>
+
+            <div class="form-group full-width">
+              <label for="address">Corporate Address</label>
+              <input type="text" id="address" class="form-control" formControlName="address" [class.is-invalid]="isInvalid('address')">
+            </div>
+
+            <div class="form-group">
+              <label for="officeLocation">Reporting Location</label>
+              <input type="text" id="officeLocation" class="form-control" formControlName="officeLocation" [class.is-invalid]="isInvalid('officeLocation')">
+            </div>
+
+            <div class="form-group">
+              <label for="gstNo">Registered GST Number</label>
+              <input type="text" id="gstNo" class="form-control" formControlName="gstNo" [class.is-invalid]="isInvalid('gstNo')">
+            </div>
+
+            <div class="form-group">
+              <label for="panNo">PAN ID</label>
+              <input type="text" id="panNo" class="form-control" formControlName="panNo" [class.is-invalid]="isInvalid('panNo')">
+            </div>
+
+          </div>
+          
+          <div class="form-actions" style="margin-top: 3rem; text-align: right; border-top: 1px solid var(--input-border); padding-top: 2rem;">
+            <button type="submit" class="btn-primary" [disabled]="profileForm.invalid">Save Settings</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dashboard Footer -->
+  <footer class="dashboard-footer">
+    <div class="footer-content">
+      <div class="footer-branding">
+        <h3>Quoco</h3>
+        <p>&copy; 2026 Quotation Consultants. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>

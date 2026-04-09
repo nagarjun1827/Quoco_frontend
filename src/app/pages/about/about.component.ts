@@ -1,16 +1,16 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { DOCUMENT, isPlatformBrowser, CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-about',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  imports: [RouterLink, CommonModule],
+  templateUrl: './about.component.html',
+  styleUrl: './about.component.css'
 })
-export class App implements OnInit {
-  isDarkMode = true; // Dark mode by default
+export class AboutComponent implements OnInit {
+  isDarkMode = true;
   
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -19,16 +19,15 @@ export class App implements OnInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.applyTheme();
+      const currentTheme = this.document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        this.isDarkMode = false;
+      }
     }
   }
 
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
-    this.applyTheme();
-  }
-
-  private applyTheme() {
     if (this.isDarkMode) {
       this.document.documentElement.setAttribute('data-theme', 'dark');
     } else {

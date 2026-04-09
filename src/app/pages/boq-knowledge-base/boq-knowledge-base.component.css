@@ -1,0 +1,297 @@
+@import '../home/home.component.css';
+
+/* Sidebar Logic for Navbar Consistency */
+.dashboard-nav {
+  z-index: 1000;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.logout-btn {
+  margin-left: 1rem;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--error);
+  background: rgba(239, 68, 68, 0.1);
+  cursor: pointer;
+  color: var(--error);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 2rem 3rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+  border-radius: 1.5rem;
+  border: 1px solid var(--input-border);
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header p {
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary);
+}
+
+/* Upload Zone */
+.upload-container {
+  padding: 0 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Project Selector Styling */
+.project-selector {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1rem 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--input-border);
+}
+
+.project-selector label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.quoco-select {
+  flex: 1;
+  max-width: 400px;
+  background: var(--bg-panel);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.quoco-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+}
+
+.format-note {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.format-note strong {
+  color: var(--accent-color);
+}
+
+.upload-zone {
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  background: var(--bg-panel);
+  border: 2px dashed var(--input-border);
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.upload-zone:hover {
+  border-color: var(--accent-color);
+  background: rgba(245, 158, 11, 0.03);
+  transform: translateY(-2px);
+}
+
+.upload-zone span {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.upload-zone p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Table Design */
+.data-section {
+  padding: 0 3rem 4rem;
+}
+
+.table-container {
+  background: var(--bg-panel);
+  border: 1px solid var(--input-border);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.premium-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.premium-table th {
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.premium-table td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--input-border);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.premium-table tr:last-child td {
+  border-bottom: none;
+}
+
+.premium-table tr:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.file-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+}
+
+.file-icon-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-icon-small.type-pdf { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.file-icon-small.type-xlsx { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.file-icon-small.type-other { background: rgba(107, 114, 128, 0.1); color: #6b7280; }
+
+.project-tag {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--accent-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.text-right { text-align: right; }
+
+.action-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  background: transparent;
+  border: 1px solid var(--input-border);
+  color: var(--text-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.action-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.empty-cell {
+  padding: 4rem !important;
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-panel {
+  background: var(--bg-secondary);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 1.5rem;
+  border: 1px solid var(--input-border);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--input-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 { margin:0; }
+
+.close-btn {
+  background: none; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;
+}
+
+.modal-body { padding: 1.5rem; }
+
+.detail-row { margin-bottom: 1rem; color: var(--text-primary); }
+
+.modal-footer {
+  padding: 1.25rem;
+  border-top: 1px solid var(--input-border);
+  text-align: right;
+}
+
+.btn.secondary {
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  border-radius: 0.75rem;
+  cursor: pointer;
+}

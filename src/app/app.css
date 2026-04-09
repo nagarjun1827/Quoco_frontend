@@ -1,0 +1,43 @@
+.global-navbar {
+  position: fixed; /* Fixed to viewport so it never scrolls away */
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 9999; /* Extremely high z-index to ensure visibility */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-btn {
+  background: var(--bg-panel);
+  backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+  padding: 0.6rem 1.25rem;
+  border-radius: 2rem;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+}
+
+.nav-btn:hover {
+  background: var(--input-bg);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4); /* Glow effect from accent */
+}
+
+.theme-toggle {
+  padding: 0.6rem;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+}

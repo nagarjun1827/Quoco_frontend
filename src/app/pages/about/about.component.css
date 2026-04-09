@@ -1,0 +1,182 @@
+@import '../home/home.component.css';
+
+/* Documentation Layout */
+.doc-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.doc-header {
+  text-align: center;
+  margin-bottom: 5rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.doc-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.doc-header p {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Sections */
+.doc-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.doc-section {
+  position: relative;
+  padding-left: 0;
+}
+
+.section-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--input-border);
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.doc-section h2 {
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.doc-section p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Documentation Detail Items */
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.doc-item {
+  padding: 1.5rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--input-border);
+  border-radius: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.doc-item:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  transform: translateX(5px);
+}
+
+.doc-item strong {
+  display: block;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+/* Note & Tip Callouts */
+.doc-note, .doc-tip {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  align-items: flex-start;
+}
+
+.doc-note {
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.doc-note svg { color: #3b82f6; flex-shrink: 0; }
+
+.doc-tip {
+  background: rgba(245, 158, 11, 0.05);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+}
+
+.doc-tip svg { color: var(--accent-color); flex-shrink: 0; }
+
+.doc-tip strong, .doc-note strong { color: #fff; }
+
+/* Premium Section Visuals */
+.premium-section {
+  padding: 2.5rem;
+  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.05), transparent);
+  border: 1px solid rgba(245, 158, 11, 0.1);
+  border-radius: 2rem;
+}
+
+.status-example {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 0 0.25rem;
+  border: 1px solid transparent;
+}
+
+.status-example.queued { color: #94a3b8; border-color: rgba(148, 163, 184, 0.2); }
+.status-example.processing { color: #3b82f6; border-color: rgba(59, 130, 246, 0.2); }
+.status-example.success { color: #10b981; border-color: rgba(16, 185, 129, 0.2); }
+.status-example.failed { color: #ef4444; border-color: rgba(239, 68, 68, 0.2); }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .doc-container { padding: 2rem 1rem; }
+  .doc-header h1 { font-size: 2.5rem; }
+  .doc-header { margin-bottom: 3rem; }
+  .doc-sections { gap: 3rem; }
+  .doc-section h2 { font-size: 1.75rem; }
+}
+
+.logout-btn {
+  margin-left: 1rem;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--error);
+  background: rgba(239, 68, 68, 0.1);
+  cursor: pointer;
+  color: var(--error);
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
+}

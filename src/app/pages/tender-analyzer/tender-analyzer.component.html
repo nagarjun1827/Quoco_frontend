@@ -1,0 +1,177 @@
+<div class="app-layout fade-in">
+  <!-- Top Navigation (Standard across all pages) -->
+  <nav class="dashboard-nav">
+    <div class="nav-brand">Quoco Hub</div>
+    <div class="nav-links">
+      <a routerLink="/home" class="nav-link">Overview</a>
+      <a routerLink="/projects" class="nav-link">Projects</a>
+      <a routerLink="/tender-analyzer" class="nav-link active">Tender Analyser</a>
+      <a routerLink="/boq-knowledge-base" class="nav-link">BoQ Knowledge Base</a>
+      <a routerLink="/boq-estimator" class="nav-link">BoQ Estimator</a>
+      <a routerLink="/about" class="nav-link">About</a>
+      <a routerLink="/settings" class="nav-link">Settings</a>
+      <button routerLink="/login" aria-label="Logout" class="logout-btn">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Workspace Header (Controls for sidebars) -->
+  <div class="workspace-header">
+    <div class="header-left">
+      <button class="header-btn" (click)="toggleSidebar()" [class.active]="isSidebarOpen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <span>History</span>
+      </button>
+    </div>
+    
+    <div class="header-center">
+      <div class="context-group">
+        <span class="session-name" *ngIf="activeSession">{{ activeSession.title }}</span>
+        <div class="nav-divider"></div>
+        <select class="nav-project-select" [(ngModel)]="selectedProjectName">
+          <option value="" disabled>Select project context...</option>
+          <option *ngFor="let p of projects" [style.value]="p.name">{{ p.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button class="header-btn" (click)="toggleDocSidebar()" [class.active]="isDocSidebarOpen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+        <span>Knowledge Base</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="chat-workspace">
+    <!-- Left Chat History Sidebar -->
+    <aside class="chat-sidebar" [class.closed]="!isSidebarOpen">
+      <div class="sidebar-header">
+        <button class="new-chat-btn" (click)="createNewChat()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+          <span>New Chat</span>
+        </button>
+      </div>
+      
+      <div class="sidebar-scroll">
+        <h4 class="history-label">Recent Sessions</h4>
+        <div class="history-list">
+          <div class="history-item" *ngFor="let session of sessions" [class.active]="session.id === activeSessionId" (click)="selectChat(session.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="chat-icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+            <span class="chat-title" [title]="session.title">{{ session.title }}</span>
+            <div class="chat-actions">
+              <button class="icon-btn" title="Rename" (click)="renameChat(session.id, $event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+              </button>
+              <button class="icon-btn danger" title="Delete" (click)="deleteChat(session.id, $event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Main Chat Console -->
+    <main class="chat-main" [class.full-width]="!isSidebarOpen && !isDocSidebarOpen">
+      <div class="chat-feed" #feedContainer>
+        <div class="welcome-screen" *ngIf="activeSession && activeSession.messages.length <= 1">
+          <div class="giant-logo">
+            <h2>Tender Assistant</h2>
+            <p>Select a PDF above to analyze tender specifications.</p>
+          </div>
+        </div>
+
+        <div class="messages">
+          <ng-container *ngIf="activeSession">
+            <div class="message-wrapper" *ngFor="let msg of activeSession.messages" [ngClass]="msg.sender">
+              
+              <!-- AI Avatar -->
+              <div class="avatar ai-avatar" *ngIf="msg.sender === 'ai'">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 2L2 22l10-4 10 4L12 2z"/></svg>
+              </div>
+
+              <div class="message-content" [class.summary-style]="msg.isSummary">
+                <div class="attachment-bubble" *ngIf="msg.attachment">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                  <span>{{ msg.attachment }}</span>
+                </div>
+                <div [innerText]="msg.text" style="white-space: pre-wrap;"></div>
+              </div>
+
+              <!-- User Avatar -->
+              <div class="avatar user-avatar" *ngIf="msg.sender === 'user'">
+                <span>U</span>
+              </div>
+            </div>
+
+            <!-- Analyzing Loading State -->
+            <div class="message-wrapper ai" *ngIf="isAnalyzing">
+              <div class="avatar ai-avatar">
+                <div class="typing-indicator">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="message-content">
+                <p>Analyzing tender document...</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Wide Chat Input Area -->
+      <div class="chat-input-row unified">
+        <div class="input-stack">
+          <!-- Full-width Horizontal Upload Bar -->
+          <div class="upload-bar full-width" (click)="fileInput.click()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+            <span>Upload Tender PDF for summary</span>
+          </div>
+
+          <div class="input-container full-width">
+            <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept=".pdf">
+            <input type="text" class="chat-prompt" placeholder="Type your question relative to the tender documents..." [(ngModel)]="userInput" (keyup.enter)="sendMessage()" [disabled]="isAnalyzing">
+            <button class="action-btn send" (click)="sendMessage()" [disabled]="!userInput.trim() || isAnalyzing" [class.active]="userInput.trim() && !isAnalyzing">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </div>
+        </div>
+        <p class="disclaimer">AI-generated estimates are advisory. Cross-verify with BoQ spreadsheets.</p>
+      </div>
+    </main>
+
+    <!-- Right Document Sidebar -->
+    <aside class="doc-sidebar" [class.closed]="!isDocSidebarOpen">
+      <div class="sidebar-header">
+        <h3>Knowledge Base</h3>
+        <p>Managed Tender Documents</p>
+      </div>
+
+      <div class="sidebar-scroll">
+        <div class="doc-empty" *ngIf="!activeSession || activeSession.documents.length === 0">
+          <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          </div>
+          <p>Analyzing files will add them here.</p>
+        </div>
+
+        <div class="doc-list" *ngIf="activeSession && activeSession.documents.length > 0">
+          <div class="doc-card" *ngFor="let doc of activeSession.documents">
+            <div class="doc-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+            </div>
+            <div class="doc-info">
+              <span class="doc-name" [title]="doc.name">{{ doc.name }}</span>
+              <span class="doc-meta">{{ doc.size }} • {{ doc.uploadDate | date:'shortTime' }}</span>
+            </div>
+            <button class="doc-action" title="View Document">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

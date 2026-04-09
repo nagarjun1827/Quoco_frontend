@@ -1,0 +1,139 @@
+<div class="split-layout">
+  <!-- Auth Navigation Overlay -->
+  <div class="auth-nav">
+    <button class="nav-btn theme-toggle" (click)="toggleTheme()" aria-label="Toggle Theme">
+      <svg *ngIf="isDarkMode" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+      <svg *ngIf="!isDarkMode" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+    </button>
+  </div>
+
+  <div class="split-image fade-in">
+    <div class="split-image-overlay">
+      <h2>Quotation Consultants</h2>
+      <p>Building the future of construction cost estimation.</p>
+    </div>
+  </div>
+  
+  <div class="split-form-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>Quoco Portal</h1>
+        <p>Sign in to your dashboard</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            class="form-control" 
+            formControlName="email"
+            placeholder="name@company.com"
+            [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          >
+          <span class="error-text" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            Valid email is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label for="password" style="margin-bottom: 0;">Password</label>
+            <a routerLink="/login" style="font-size: 0.85rem; color: var(--text-secondary); text-decoration: underline;">Forgot Password?</a>
+          </div>
+          <input 
+            type="password" 
+            id="password" 
+            class="form-control" 
+            formControlName="password"
+            placeholder="Enter your password"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+          <span class="error-text" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Password must be at least 6 characters
+          </span>
+        </div>
+
+        <button type="submit" class="btn-submit">Sign In</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Don't have an account? <a routerLink="/register">Register your company</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── OTP Verification Modal ── -->
+<div class="otp-overlay" *ngIf="showOtpModal" (click)="closeOtpModal()">
+  <div class="otp-modal" (click)="$event.stopPropagation()">
+
+    <!-- Success state -->
+    <div class="otp-success" *ngIf="otpVerified">
+      <div class="otp-success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+      </div>
+      <h3>Verified!</h3>
+      <p>Signing you in…</p>
+    </div>
+
+    <!-- Default OTP input state -->
+    <ng-container *ngIf="!otpVerified">
+      <button class="otp-close" (click)="closeOtpModal()" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+
+      <div class="otp-icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+      </div>
+
+      <h3 class="otp-title">Verify Your Email</h3>
+      <p class="otp-subtitle">
+        A 6-digit code has been sent to<br>
+        <strong class="otp-email">{{ maskedEmail }}</strong>
+      </p>
+
+      <!-- 6 digit boxes -->
+      <div class="otp-inputs" (paste)="onOtpPaste($event)">
+        <input
+          *ngFor="let digit of otpDigits; let i = index"
+          [id]="'login-otp-' + i"
+          class="otp-box"
+          type="text"
+          inputmode="numeric"
+          [value]="otpDigits[i]"
+          (input)="onOtpInput($event, i)"
+          (keydown)="onOtpKeydown($event, i)"
+          autocomplete="one-time-code"
+          [class.filled]="otpDigits[i]"
+          [class.error-box]="!!otpError"
+          aria-label="OTP digit {{ i + 1 }}"
+        >
+      </div>
+
+      <!-- Error message -->
+      <div class="otp-error" *ngIf="otpError">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+        {{ otpError }}
+      </div>
+
+      <!-- Verify button -->
+      <button class="otp-verify-btn" (click)="verifyOtp()" [disabled]="otpDigits.join('').length < 6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+        Verify &amp; Sign In
+      </button>
+
+      <!-- Resend -->
+      <div class="otp-resend">
+        <span *ngIf="resendDisabled" class="otp-countdown">
+          Resend in <strong>{{ countdown }}s</strong>
+        </span>
+        <button *ngIf="!resendDisabled" class="otp-resend-btn" (click)="resendOtp()" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          Resend OTP
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>
