@@ -10,7 +10,7 @@ import { DOCUMENT, isPlatformBrowser, CommonModule } from '@angular/common';
   styleUrl: './app.css'
 })
 export class App implements OnInit {
-  isDarkMode = true; // Dark mode by default
+  isDarkMode = false; // Light mode by default
 
   constructor(
     @Inject(DOCUMENT) private document: Document,

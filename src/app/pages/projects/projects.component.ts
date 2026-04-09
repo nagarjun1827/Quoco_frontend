@@ -19,7 +19,7 @@ export interface Project {
   styleUrl: './projects.component.css'
 })
 export class ProjectsComponent implements OnInit {
-  isDarkMode = true;
+  isDarkMode = false;
   isModalOpen = false;
   projectForm: FormGroup;
   statusFilter = 'All';
@@ -44,8 +44,8 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        this.isDarkMode = false;
+      if (currentTheme === 'dark') {
+        this.isDarkMode = true;
       }
       this.loadProjects();
     }

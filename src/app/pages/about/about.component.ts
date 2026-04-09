@@ -10,7 +10,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
   styleUrl: './about.component.css'
 })
 export class AboutComponent implements OnInit {
-  isDarkMode = true;
+  isDarkMode = false;
   
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -20,8 +20,8 @@ export class AboutComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        this.isDarkMode = false;
+      if (currentTheme === 'dark') {
+        this.isDarkMode = true;
       }
     }
   }

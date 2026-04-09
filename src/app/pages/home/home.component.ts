@@ -10,7 +10,7 @@ import { DOCUMENT, isPlatformBrowser, CommonModule } from '@angular/common';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  isDarkMode = true;
+  isDarkMode = false;
 
   // Carousel State
   currentSlide = 0;
@@ -35,8 +35,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        this.isDarkMode = false;
+      if (currentTheme === 'dark') {
+        this.isDarkMode = true;
       }
     }
     

@@ -37,7 +37,7 @@ interface Project {
   styleUrl: './tender-analyzer.component.css'
 })
 export class TenderAnalyzerComponent implements OnInit {
-  isDarkMode = true;
+  isDarkMode = false;
   isSidebarOpen = true;
   isDocSidebarOpen = true;
 
@@ -60,8 +60,8 @@ export class TenderAnalyzerComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        this.isDarkMode = false;
+      if (currentTheme === 'dark') {
+        this.isDarkMode = true;
       }
       this.loadProjects();
     }

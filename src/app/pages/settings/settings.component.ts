@@ -26,7 +26,7 @@ export interface AppPreference {
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent implements OnInit {
-  isDarkMode = true;
+  isDarkMode = false;
 
   // Password fields
   currentPassword = '';
@@ -87,7 +87,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      this.isDarkMode = currentTheme !== 'light';
+      this.isDarkMode = currentTheme === 'dark';
       this.loadSavedSettings();
     }
   }

@@ -12,7 +12,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 })
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
-  isDarkMode = true;
+  isDarkMode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -39,8 +39,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        this.isDarkMode = false;
+      if (currentTheme === 'dark') {
+        this.isDarkMode = true;
       }
     }
 

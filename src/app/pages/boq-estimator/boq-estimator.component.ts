@@ -25,7 +25,7 @@ interface Project {
   styleUrl: './boq-estimator.component.css'
 })
 export class BoqEstimatorComponent implements OnInit {
-  isDarkMode = true;
+  isDarkMode = false;
   estimatorFiles: BoqFile[] = [];
   viewingFile: BoqFile | null = null;
   
@@ -40,8 +40,8 @@ export class BoqEstimatorComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        this.isDarkMode = false;
+      if (currentTheme === 'dark') {
+        this.isDarkMode = true;
       }
       this.loadProjects();
       this.loadStoredFiles();

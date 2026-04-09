@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
-  isDarkMode = true;
+  isDarkMode = false;
 
   // OTP Modal state
   showOtpModal = false;
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       const currentTheme = this.document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') this.isDarkMode = false;
+      if (currentTheme === 'dark') this.isDarkMode = true;
     }
   }
 
