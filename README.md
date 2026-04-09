@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 # Quoco_frontend
-Angular-based web application for AI-driven construction cost estimation. Delivering an enterprise-grade interface for interactive BoQ management and intelligent tender document analysis.
-=======
-# QuocoFrontend
+A web application for AI-driven construction cost estimation. Delivering an enterprise-grade interface for interactive BoQ management and intelligent tender document analysis.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
 
@@ -61,4 +58,3 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
->>>>>>> 29a68ae (initial commit)
